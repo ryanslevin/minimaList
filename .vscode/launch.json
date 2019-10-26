@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - MinimalistApplication",
+            "request": "launch",
+            "mainClass": "com.ryanslevin.minimalist.MinimalistApplication",
+            "projectName": "minimalist"
+        }
+    ]
+}
