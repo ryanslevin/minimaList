@@ -1,0 +1,8 @@
+auth0:
+  audience: minimalist-api
+spring:
+  security:
+    oauth2:
+        resourceserver:
+            jwt:
+                issuer-uri: https://dev-hcal8rhi.auth0.com/
