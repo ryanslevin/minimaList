@@ -1,4 +1,5 @@
 {
     "domain": "dev-hcal8rhi.auth0.com",
-    "clientId": "rcY8LIgyqvamjoFHCBYRAPsEyne812Kw"
+    "clientId": "rcY8LIgyqvamjoFHCBYRAPsEyne812Kw",
+    "audience": "minimalist-api"
 }

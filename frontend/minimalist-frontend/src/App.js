@@ -5,6 +5,7 @@ import NavBar from "./components/NavBar";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Profile from "./components/Profile";
 import PrivateRoute from './components/PrivateRoute';
+import PrivateApi from './components/PrivateApi';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Switch>
           <Route path="/" exact />
           <PrivateRoute path="/profile" component={Profile} />
+          <PrivateRoute path="/private-api" component={PrivateApi} />
         </Switch>
       </BrowserRouter>
     </div>
