@@ -1,5 +1,7 @@
 package com.ryanslevin.minimalist.Service;
 
+import java.util.List;
+
 import com.ryanslevin.minimalist.DAO.TaskDao;
 import com.ryanslevin.minimalist.Entity.Task;
 
@@ -15,6 +17,11 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public void createTask(Task task) {
         taskDao.createTask(task);
+    }
+
+    @Override
+    public List<Task> getTasks(String userId) {
+        return taskDao.getTasks(userId);
     }
     
 }

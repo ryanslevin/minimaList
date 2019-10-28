@@ -10,8 +10,10 @@ const ExternalApi = () => {
     try {
       const token = await getTokenSilently();
 
+      const userId = user.sub.replace('|', "");
+
       const requestBody = JSON.stringify({
-        userId: user.sub,
+        userId: userId,
         description: "Make the post api work",
         isComplete: false
     })

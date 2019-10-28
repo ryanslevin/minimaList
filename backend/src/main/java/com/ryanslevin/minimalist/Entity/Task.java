@@ -26,6 +26,10 @@ public class Task {
     @Column(name="is_complete")
     private Boolean isComplete;
 
+    public Task() {
+        
+    }
+
     public Task(int id, String userId, String description, Boolean isComplete) {
         this.id = id;
         this.userId = userId;

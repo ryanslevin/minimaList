@@ -7,5 +7,7 @@ import com.ryanslevin.minimalist.Entity.Task;
 public interface TaskController {
 
     public void createTask(Task task);
+
+    public List<Task> getTasks(String userId);
     
 }

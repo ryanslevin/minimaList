@@ -1,26 +1,28 @@
 import React from "react";
-import NavBar from "./components/NavBar";
+import Navigation from "./components/NavBar";
 
 // New - import the React Router components, and the Profile page component
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Profile from "./components/Profile";
+import Tasks from "./components/Tasks"
 import PrivateRoute from './components/PrivateRoute';
-import PrivateApi from './components/PrivateApi';
+
+import Container from 'react-bootstrap/Container';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-    <div className="App">
+    <Container className="app">
       <BrowserRouter>
-        <header>
-          <NavBar />
-        </header>
+          <Navigation />
         <Switch>
           <Route path="/" exact />
           <PrivateRoute path="/profile" component={Profile} />
-          <PrivateRoute path="/private-api" component={PrivateApi} />
         </Switch>
       </BrowserRouter>
-    </div>
+      <Tasks />
+    </Container>
   );
 }
 
