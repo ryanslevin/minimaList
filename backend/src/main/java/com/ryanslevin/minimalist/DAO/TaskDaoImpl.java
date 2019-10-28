@@ -30,6 +30,7 @@ public class TaskDaoImpl implements TaskDao {
     }
 
     @Override
+    @Transactional
     public List<Task> getTasks(String userId) {
 
         Session session = entityManager.unwrap(Session.class);
@@ -39,5 +40,28 @@ public class TaskDaoImpl implements TaskDao {
         List<Task> tasks = query.getResultList();
 
         return tasks;
+    }
+
+    @Override
+    @Transactional
+    public void updateTask(Task task) {
+
+        Session session = entityManager.unwrap(Session.class);
+        
+        session.update(task);
+    }
+
+    @Override
+    @Transactional
+    public void deleteTask(int taskId) {
+        
+        Session session = entityManager.unwrap(Session.class);
+
+        Query query = session.createQuery("from Task where id = "+taskId, Task.class);
+
+        Task task = (Task) query.getSingleResult();
+
+        session.delete(task);
+
     }
 }

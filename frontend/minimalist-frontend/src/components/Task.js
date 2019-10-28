@@ -10,7 +10,7 @@ import '../App.css';
 const Task = props => {
 
     let status = "Incomplete";
-
+    
     if (props.icCompleted) {
         status = "Complete"
     }

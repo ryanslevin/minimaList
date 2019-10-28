@@ -7,6 +7,7 @@ import Container from 'react-bootstrap/Container';
 import '../App.css';
 
 import Task from './Task';
+import NewTask from './NewTask';
 
 const Tasks = () => {
 
@@ -55,18 +56,33 @@ const Tasks = () => {
     }, [loading, tasksRetrieved, tasks])
 
 
-    let taskItems = "";
+    //Called on submission of a new task, triggers useEffect
+    const taskAdded = () => {
+        setTasksRetrieved(false);
+    }
+
+
+    let taskItems = [];
+    let newTask = "";
 
     //If tasksRetrieved = true map the tasks to an array of Task components
     if (tasksRetrieved) {
+
         taskItems = tasks.map((task) =>
         <Task key={task.id} id={task.id} isComplete={task.isComplete} taskDesc={task.description} />);
+
+        newTask = <NewTask userId={user.sub.replace('|', "")} onClick={() => taskAdded()} />;
+
+        console.log(taskItems);
+
     }
 
 
     return (
         <Container className='tasks'>
+            {newTask}
             {taskItems}
+            
         </Container>
     )
 

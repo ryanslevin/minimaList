@@ -8,8 +8,10 @@ import com.ryanslevin.minimalist.Service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,6 +36,18 @@ public class TaskControllerImpl implements TaskController {
     public List<Task> getTasks(@RequestParam String userId) {
         
         return taskService.getTasks(userId);
+    }
+
+    @Override
+    @PutMapping(value = "/task")
+    public void updateTask(@RequestBody Task task) {
+        taskService.updateTask(task);
+    }
+
+    @Override
+    @DeleteMapping
+    public void deleteTask(@RequestParam int taskId) {
+        taskService.deleteTask(taskId);
     }
 
 }
