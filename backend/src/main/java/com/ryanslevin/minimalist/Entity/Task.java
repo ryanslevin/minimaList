@@ -11,7 +11,6 @@ import javax.persistence.Table;
 @Table(name="tasks")
 public class Task {
 
-
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id")
@@ -63,6 +62,12 @@ public class Task {
 
     public void setIsComplete(Boolean isComplete) {
         this.isComplete = isComplete;
+    }
+
+    @Override
+    public String toString() {
+        return "Task [description=" + description + ", id=" + id + ", isComplete=" + isComplete + ", userId=" + userId
+                + "]";
     }
     
 

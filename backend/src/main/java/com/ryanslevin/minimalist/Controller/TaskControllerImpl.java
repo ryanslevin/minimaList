@@ -34,7 +34,6 @@ public class TaskControllerImpl implements TaskController {
     @Override
     @GetMapping(value = "/task")
     public List<Task> getTasks(@RequestParam String userId) {
-        
         return taskService.getTasks(userId);
     }
 
@@ -45,7 +44,7 @@ public class TaskControllerImpl implements TaskController {
     }
 
     @Override
-    @DeleteMapping
+    @DeleteMapping(value = "/task")
     public void deleteTask(@RequestParam int taskId) {
         taskService.deleteTask(taskId);
     }

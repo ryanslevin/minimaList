@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth0 } from "../react-auth0-spa";
 
 import Container from 'react-bootstrap/Container';
+import Button from 'react-bootstrap/Button';
 
 import '../App.css';
 
@@ -15,6 +16,7 @@ const Tasks = () => {
 
     const [tasks, setTasks] = useState([]);
     const [tasksRetrieved, setTasksRetrieved] = useState(false);
+    const [showNewTask, setShowNewTask] = useState(false);
 
     const getTasks = async () => {
 
@@ -23,6 +25,8 @@ const Tasks = () => {
 
         //Remove "|" from user.sub to prevent encoding error during POST
         const userId = user.sub.replace('|', "");
+
+        setTasksRetrieved(true);
 
         //GET request to backend, will return a collection of tasks
         const result = await fetch("http://localhost:8080/api/task?userId=" + userId, {
@@ -38,54 +42,66 @@ const Tasks = () => {
                 async json => {
                     setTasks(json);
                 }
-            ).then(
-                setTasksRetrieved(true),
-                console.log(tasksRetrieved),
-                console.log(tasks)
-            );
-
+            )
     };
 
     useEffect(() => {
+
         //Check if Auth0 is still loading, and if the tasks have already been retrieved
         if (!loading && !tasksRetrieved) {
             getTasks();
         } else {
         }
-
     }, [loading, tasksRetrieved, tasks])
 
-
-    //Called on submission of a new task, triggers useEffect
-    const taskAdded = () => {
+    //Passed to tasks and called when they update or delete their content
+    const handleUpdateTasks = () => {
         setTasksRetrieved(false);
     }
 
-
     let taskItems = [];
     let newTask = "";
+    
+    //Called on submission of a new task
+    const taskAdded = () => {
 
-    //If tasksRetrieved = true map the tasks to an array of Task components
-    if (tasksRetrieved) {
+        //sets showNewTask to false, which renders the "+" button
+        setShowNewTask(false);
+        handleUpdateTasks(false);
+    }
 
+    const handleCancelNewTask = () => {
+        setShowNewTask(false);
+    }
+
+    //If tasksRetrieved === true map the tasks to an array of Task components
+    if (tasksRetrieved && !loading) {
+        console.log(tasks)
         taskItems = tasks.map((task) =>
-        <Task key={task.id} id={task.id} isComplete={task.isComplete} taskDesc={task.description} />);
+            <Task
+                key={task.id}
+                id={task.id}
+                userId={user.sub.replace('|', "")}
+                isComplete={task.isComplete}
+                taskDesc={task.description}
+                handleUpdate={() => handleUpdateTasks()}
+            />);
 
-        newTask = <NewTask userId={user.sub.replace('|', "")} onClick={() => taskAdded()} />;
-
-        console.log(taskItems);
+        newTask = <Button variant="outline-dark" size="lg" onClick={() => setShowNewTask(true)}>+</Button>
 
     }
 
+    
+    if (showNewTask) {
+        newTask = <NewTask userId={user.sub.replace('|', "")} onClick={() => taskAdded()} handleCancel={() => handleCancelNewTask()} />
+    }
 
     return (
         <Container className='tasks'>
             {newTask}
             {taskItems}
-            
         </Container>
     )
-
 }
 
 export default Tasks;

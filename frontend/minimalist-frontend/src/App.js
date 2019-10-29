@@ -2,9 +2,7 @@ import React from "react";
 import Navigation from "./components/NavBar";
 
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Profile from "./components/Profile";
 import Tasks from "./components/Tasks"
-import PrivateRoute from './components/PrivateRoute';
 
 import Container from 'react-bootstrap/Container';
 
@@ -17,9 +15,9 @@ function App() {
           <Navigation />
         <Switch>
           <Route path="/" exact />
-          <PrivateRoute path="/profile" component={Profile} />
         </Switch>
       </BrowserRouter>
+      <h2>minimaList</h2>
       <Tasks />
     </Container>
   );

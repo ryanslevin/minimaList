@@ -39,6 +39,8 @@ public class TaskDaoImpl implements TaskDao {
     
         List<Task> tasks = query.getResultList();
 
+        System.out.println("Getting tasks:"+tasks);
+
         return tasks;
     }
 
@@ -49,6 +51,8 @@ public class TaskDaoImpl implements TaskDao {
         Session session = entityManager.unwrap(Session.class);
         
         session.update(task);
+
+        System.out.println("Updated task:"+task);
     }
 
     @Override
