@@ -26,3 +26,29 @@
     display: inline !important;
     background-color: rgba(0,0,0,0) !important;
 }
+
+.icon{
+    font-size: 2em;
+    line-height: 3em;
+    margin-right: 10px;
+}
+
+.options{
+    font-size: 1em;
+}
+
+.icon:hover{
+    opacity: 70%;
+    cursor: pointer;
+}
+
+.red{
+    color: rgb(204, 94, 94);
+}
+
+.green{
+    color: rgb(94, 177, 94);
+}
+
+
+

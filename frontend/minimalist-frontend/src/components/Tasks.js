@@ -5,6 +5,9 @@ import { useAuth0 } from "../react-auth0-spa";
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+
 import '../App.css';
 
 import Task from './Task';
@@ -40,7 +43,8 @@ const Tasks = () => {
         await result.json()
             .then(
                 async json => {
-                    setTasks(json);
+                    setTasks(json)
+                    console.log(json)
                 }
             )
     };
@@ -61,7 +65,7 @@ const Tasks = () => {
 
     let taskItems = [];
     let newTask = "";
-    
+
     //Called on submission of a new task
     const taskAdded = () => {
 
@@ -76,22 +80,27 @@ const Tasks = () => {
 
     //If tasksRetrieved === true map the tasks to an array of Task components
     if (tasksRetrieved && !loading) {
-        console.log(tasks)
-        taskItems = tasks.map((task) =>
+
+        taskItems = tasks.map((task) => 
             <Task
                 key={task.id}
                 id={task.id}
                 userId={user.sub.replace('|', "")}
                 isComplete={task.isComplete}
                 taskDesc={task.description}
+                createdDateTime={task.createdDateTime}
+                completeByDate={task.completeByDate}
                 handleUpdate={() => handleUpdateTasks()}
-            />);
+            />
+        );
 
-        newTask = <Button variant="outline-dark" size="lg" onClick={() => setShowNewTask(true)}>+</Button>
+        newTask = <FontAwesomeIcon className='icon' icon={faPlus} onClick={() => setShowNewTask(true)}/>
+
+        
 
     }
 
-    
+
     if (showNewTask) {
         newTask = <NewTask userId={user.sub.replace('|', "")} onClick={() => taskAdded()} handleCancel={() => handleCancelNewTask()} />
     }

@@ -1,39 +1,54 @@
 package com.ryanslevin.minimalist.Entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="tasks")
+@Table(name = "tasks")
 public class Task {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
+    @Column(name = "id")
     private int id;
 
-    @Column(name="user_id")
+    @NotNull
+    @Column(name = "user_id")
     private String userId;
 
-    @Column(name="description")
+    @NotNull
+    @Column(name = "description")
     private String description;
 
-    @Column(name="is_complete")
+    @NotNull
+    @Column(name = "is_complete")
     private Boolean isComplete;
 
+    @Column(name = "created_datetime")
+    private Date createdDateTime;
+
+    @Column(name = "complete_by_date")
+    private Date completeByDate;
+
     public Task() {
-        
+
     }
 
-    public Task(int id, String userId, String description, Boolean isComplete) {
+    public Task(int id, String userId, String description, Boolean isComplete, Date createdDateTime, Date completeByDate) {
         this.id = id;
         this.userId = userId;
         this.description = description;
         this.isComplete = isComplete;
+        this.createdDateTime = createdDateTime;
+        this.completeByDate = completeByDate;
     }
 
     public int getId() {
@@ -64,14 +79,27 @@ public class Task {
         this.isComplete = isComplete;
     }
 
+    public Date getCreatedDateTime() {
+        return createdDateTime;
+    }
+
+    public void setCreatedDateTime(Date createdDateTime) {
+        this.createdDateTime = createdDateTime;
+    }
+
+    public Date getCompleteByDate() {
+        return completeByDate;
+    }
+
+    public void setCompleteByDate(Date completeByDate) {
+        this.completeByDate = completeByDate;
+    }
+
     @Override
     public String toString() {
-        return "Task [description=" + description + ", id=" + id + ", isComplete=" + isComplete + ", userId=" + userId
-                + "]";
+        return "Task [completeByDate=" + completeByDate + ", createdDateTime=" + createdDateTime + ", description="
+                + description + ", id=" + id + ", isComplete=" + isComplete + ", userId=" + userId + "]";
     }
     
-
-
-
 
 }
