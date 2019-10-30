@@ -135,7 +135,13 @@ const Task = props => {
         </Dropdown>
 
         let descriptionContent = description;
-        let completeByDateContent = completeByDate;
+        let completeByDateContent;
+
+        if (completeByDate === "1970-01-01") {
+            completeByDateContent = "-";
+        }else {
+            completeByDateContent = completeByDate;
+        }
 
     if (edit) {
         descriptionContent = <Form.Control value={description} type="text" onChange={(e) => setDescription(e.target.value)} />

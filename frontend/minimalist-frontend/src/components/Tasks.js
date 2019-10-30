@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth0 } from "../react-auth0-spa";
 
 import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
@@ -20,6 +20,7 @@ const Tasks = () => {
     const [tasks, setTasks] = useState([]);
     const [tasksRetrieved, setTasksRetrieved] = useState(false);
     const [showNewTask, setShowNewTask] = useState(false);
+    const [showCompleted, setShowCompleted] = useState(false);
 
     const getTasks = async () => {
 
@@ -78,11 +79,17 @@ const Tasks = () => {
         setShowNewTask(false);
     }
 
-    //If tasksRetrieved === true map the tasks to an array of Task components
-    if (tasksRetrieved && !loading) {
 
-        taskItems = tasks.map((task) => 
-            <Task
+    
+    const handleRenderTasks = () => {
+
+        //Iterates through the task item
+        taskItems = tasks.map((task) => {
+
+            //If showCompleted is true, assigns all tasks to taskItems
+            if (showCompleted) {
+                
+                return <Task
                 key={task.id}
                 id={task.id}
                 userId={user.sub.replace('|', "")}
@@ -92,13 +99,40 @@ const Tasks = () => {
                 completeByDate={task.completeByDate}
                 handleUpdate={() => handleUpdateTasks()}
             />
-        );
+            } else {
+
+                //If showCompleted is false, assigns all incomplete tasks to taskItems
+                if (!task.isComplete) {
+                     
+                    return <Task
+                    key={task.id}
+                    id={task.id}
+                    userId={user.sub.replace('|', "")}
+                    isComplete={task.isComplete}
+                    taskDesc={task.description}
+                    createdDateTime={task.createdDateTime}
+                    completeByDate={task.completeByDate}
+                    handleUpdate={() => handleUpdateTasks()}
+                />
+                }
+            }
+        }
+        )
+    }
+
+    //If tasksRetrieved === true map the tasks to an array of Task components
+    if (tasksRetrieved && !loading) {
+
+        handleRenderTasks();
 
         newTask = <FontAwesomeIcon className='icon' icon={faPlus} onClick={() => setShowNewTask(true)}/>
 
-        
-
     }
+
+    //Called when the showComepleted state changes
+    useEffect(() => {
+        handleRenderTasks();
+    }, [showCompleted])
 
 
     if (showNewTask) {
@@ -107,6 +141,7 @@ const Tasks = () => {
 
     return (
         <Container className='tasks'>
+            <Form.Check label="Show Completed Tasks" onChange={() => setShowCompleted(!showCompleted)} />
             {newTask}
             {taskItems}
         </Container>

@@ -14,10 +14,15 @@ import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
 
 const NewTask = (props) => {
 
+  //State management
   const [description, setDescription] = useState();
   const [completeByDate, setCompleteByDate] = useState();
-
+  
+  //Function to get Auto0 token, needed for POST call
   const { getTokenSilently } = useAuth0();
+
+  //Get todays date in ISO format to set min for date picker
+  const today = new Date().toISOString().split('T')[0];
 
   //Update the descirption when the value of the form changes
   const updateDescription = (e) => {
@@ -67,7 +72,7 @@ const NewTask = (props) => {
           <Form.Control type="text" onChange={(e) => updateDescription(e)} />
         </Col>
         <Col xs={3}>
-          <Form.Control type="date" onChange={(e) => handleCompleteByDateChange(e)} />
+          <Form.Control type="date" min={today} onChange={(e) => handleCompleteByDateChange(e)} />
         </Col>
         <Col xs={1}>
         </Col>
