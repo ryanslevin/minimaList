@@ -3,14 +3,12 @@ import React, { useState } from 'react';
 import { useAuth0 } from "../react-auth0-spa";
 
 import Container from 'react-bootstrap/Container';
-
 import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 
 const NewTask = (props) => {
 
@@ -68,17 +66,17 @@ const NewTask = (props) => {
   return (
     <Container className='task'>
       <Row>
-        <Col xs={6}>
-          <Form.Control type="text" onChange={(e) => updateDescription(e)} />
+        <Col xs={12} sm={6} className='task-col align-self-center'>
+          <Form.Control className='text-area' as="textarea" rows="1" onChange={(e) => updateDescription(e)} />
         </Col>
-        <Col xs={3}>
+        <Col xs={6} sm={3} className='task-col align-self-center'>
           <Form.Control type="date" min={today} onChange={(e) => handleCompleteByDateChange(e)} />
         </Col>
-        <Col xs={1}>
+        <Col xs={6} sm={1} className='task-col align-self-center'>
         </Col>
-        <Col xs={2}>
-        <FontAwesomeIcon className='icon green' icon={faCheck} onClick={() => handleTaskSubmit()}/>
-        <FontAwesomeIcon className='icon red' icon={faTimes} onClick={props.handleCancel}/>
+        <Col xs={12} sm={2} className='task-col align-self-center'>
+        <FontAwesomeIcon className='icon' icon={faCheckCircle} onClick={() => handleTaskSubmit()}/>
+        <FontAwesomeIcon className='icon' icon={faTimesCircle} onClick={props.handleCancel}/>
         </Col>
       </Row>
     </Container>

@@ -7,11 +7,9 @@ import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEllipsisH } from '@fortawesome/free-solid-svg-icons'
-import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faTimes, faEllipsisH  } from '@fortawesome/free-solid-svg-icons'
 
 import '../App.css';
 
@@ -28,16 +26,21 @@ const Task = props => {
     let [description, setDescription] = useState(props.taskDesc);
     let [completeByDate, setCompleteByDate] = useState(new Date(props.completeByDate).toISOString().split("T")[0])
     let [createdDateTime, setCreatedDateTime] = useState(new Date(props.createdDateTime).toISOString().split("T")[0])
+    let [isComplete, setIsComplete] = useState(props.isComplete)
     let [edit, setEdit] = useState(false);
 
-    if (props.isComplete) {
+    //Get todays date in ISO format to set min for date picker
+    const today = new Date().toISOString().split('T')[0];
+
+    if (isComplete) {
         status = "Complete"
     }
 
     useEffect(() => {
         setDescription(props.taskDesc);
         setCompleteByDate(new Date(props.completeByDate).toISOString().split("T")[0]);
-    }, [props.taskDesc, props.completeByDate])
+        setIsComplete(props.isComplete);
+    }, [props.taskDesc, props.completeByDate, props.isComplete])
 
     const handleDelete = async (id) => {
 
@@ -128,9 +131,9 @@ const Task = props => {
         <Dropdown>
             <Dropdown.Toggle size="sm" variant="light" id="dropdown-basic"><FontAwesomeIcon className='icon options' icon={faEllipsisH}/></Dropdown.Toggle>
             <Dropdown.Menu>
-                <Dropdown.Item onClick={() => handleComplete(props.id)}>Complete</Dropdown.Item>
-                <Dropdown.Item onClick={() => handleDelete(props.id)}>Delete</Dropdown.Item>
-                <Dropdown.Item onClick={() => setEdit(true)}>Edit</Dropdown.Item>
+                <Dropdown.Item as='button' onClick={() => handleComplete(props.id)}>Complete</Dropdown.Item>
+                <Dropdown.Item as='button' onClick={() => handleDelete(props.id)}>Delete</Dropdown.Item>
+                <Dropdown.Item as='button' onClick={() => setEdit(true)}>Edit</Dropdown.Item>
             </Dropdown.Menu>
         </Dropdown>
 
@@ -144,18 +147,19 @@ const Task = props => {
         }
 
     if (edit) {
-        descriptionContent = <Form.Control value={description} type="text" onChange={(e) => setDescription(e.target.value)} />
+        descriptionContent = <Form.Control value={description} className='text-area' as="textarea" rows="1" onChange={(e) => setDescription(e.target.value)} />
 
-        completeByDateContent = <Form.Control type="date" value={completeByDate} onChange={(e) => handleCompleteByDateChange(e)} />
+        completeByDateContent = <Form.Control type="date" value={completeByDate} min={today} onChange={(e) => handleCompleteByDateChange(e)} />
 
         buttonContent = 
             <>
-            <FontAwesomeIcon className='icon green' icon={faCheck} onClick={() => handleEdit()}/>
-            <FontAwesomeIcon className='icon red' icon={faTimes} onClick={() => handleCancelEdit()}/>
+            <FontAwesomeIcon className='icon' icon={faCheck} onClick={() => handleEdit()}/>
+            <FontAwesomeIcon className='icon' icon={faTimes} onClick={() => handleCancelEdit()}/>
             </>
 
     }
 
+    //Takes the boolean prop and converts to a string for display
     if (props.isCompleted) {
         status = "Complete"
     }
@@ -163,10 +167,10 @@ const Task = props => {
     return (
         <Container className='task'>
             <Row>
-                <Col xs={6}>{descriptionContent}</Col>
-                <Col xs={3}className='complete-by'>{completeByDateContent}</Col>
-                <Col xs={1}className='status'>{status}</Col>
-                <Col xs={2}className='buttons'>{buttonContent}</Col>
+                <Col xs={12} sm={6} className='task-col align-self-center'>{descriptionContent}</Col>
+                <Col xs={6} sm={3} className='task-col align-self-center'>{completeByDateContent}</Col>
+                <Col xs={6} sm={1} className='task-col align-self-center'>{status}</Col>
+                <Col xs={12} sm={2} className='task-col align-self-center'>{buttonContent}</Col>
             </Row>
         </Container >
     )

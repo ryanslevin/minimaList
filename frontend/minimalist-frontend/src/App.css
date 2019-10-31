@@ -2,36 +2,46 @@
     width: 100%;
     max-width: 100% !important;
     text-align: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+    font-family: 'Raleway', sans-serif;
 }
 
 .navbar{
     text-align: center;
+    background-color: #292929;
 }
 
 .tasks{
-    margin-top: 40px;
+    padding-top: 20px;
+    width: 80vw;
+    max-width: 80vw;
+    height: 80vh;
+
 }
 
 .task{
     text-align: center;
-    margin: 10px;
-    border: 1px solid rgba(0,0,0,0);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(0,0,0,.25);
     border-radius: 8px;
-    height: 3em;
-    line-height: 3em;
-    background-color: rgba(0, 0, 0, .025);
+    background-color: #fafafa;
+    box-shadow: 2px 2px grey;
+    height: auto;
 }
 
 .form-control{
     display: inline !important;
-    background-color: rgba(0,0,0,0) !important;
 }
 
 .icon{
-    font-size: 2em;
-    line-height: 3em;
+    font-size: 1.5em;
     margin-right: 10px;
+    margin-left: 10px;
+    color: #292929;
 }
+
 
 .options{
     font-size: 1em;
@@ -50,5 +60,56 @@
     color: rgb(94, 177, 94);
 }
 
+.completed-filter{
+    text-align: right;
+    position: relative;
+}
+
+.task-col {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    height: auto;
+}
+
+.header{
+    text-align: center !important;
+    color: #292929 !important;
+}
+
+.title{
+    color: #f5f5f5 !important;
+    font-size: 3em !important;
+    font-weight: 300 !important;
+}
+
+.logout{
+    text-align: right !important;
+    color: #f5f5f5 !important;
+}
+
+.text-area{
+    margin-top: 5px !important;
+    margin-bottom: 0px !important;
+}
+
+.button{
+    background-color: #292929 !important;
+    border: 1px solid rgba(0, 0, 0, 0) !important;
+    border-radius: 8px !important;
+    box-shadow: 2px 2px grey !important;
+    color: #f5f5f5 !important;
+}
+
+.button:hover{
+    background-color: #3d3d3d !important;
+}
+
+.welcome{
+    padding-top: 5vh;
+}
+
+.welcome-button{
+    margin: 2vh;
+}
 
 

@@ -1,25 +1,22 @@
 import React from "react";
+
 import Navigation from "./components/NavBar";
+import Welcome from "./components/Welcome";
 
-import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Tasks from "./components/Tasks"
-
 import Container from 'react-bootstrap/Container';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
+    <>
+    <Navigation />
     <Container className="app">
-      <BrowserRouter>
-          <Navigation />
-        <Switch>
-          <Route path="/" exact />
-        </Switch>
-      </BrowserRouter>
-      <h2>minimaList</h2>
+      <Welcome />
       <Tasks />
     </Container>
+    </>
   );
 }
 

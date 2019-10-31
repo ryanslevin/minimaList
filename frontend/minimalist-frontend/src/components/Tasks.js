@@ -3,15 +3,20 @@ import React, { useState, useEffect } from 'react';
 import { useAuth0 } from "../react-auth0-spa";
 
 import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlusCircle, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 import '../App.css';
 
 import Task from './Task';
 import NewTask from './NewTask';
+
 
 const Tasks = () => {
 
@@ -45,7 +50,6 @@ const Tasks = () => {
             .then(
                 async json => {
                     setTasks(json)
-                    console.log(json)
                 }
             )
     };
@@ -79,8 +83,6 @@ const Tasks = () => {
         setShowNewTask(false);
     }
 
-
-    
     const handleRenderTasks = () => {
 
         //Iterates through the task item
@@ -88,23 +90,8 @@ const Tasks = () => {
 
             //If showCompleted is true, assigns all tasks to taskItems
             if (showCompleted) {
-                
-                return <Task
-                key={task.id}
-                id={task.id}
-                userId={user.sub.replace('|', "")}
-                isComplete={task.isComplete}
-                taskDesc={task.description}
-                createdDateTime={task.createdDateTime}
-                completeByDate={task.completeByDate}
-                handleUpdate={() => handleUpdateTasks()}
-            />
-            } else {
 
-                //If showCompleted is false, assigns all incomplete tasks to taskItems
-                if (!task.isComplete) {
-                     
-                    return <Task
+                return <Task
                     key={task.id}
                     id={task.id}
                     userId={user.sub.replace('|', "")}
@@ -114,6 +101,21 @@ const Tasks = () => {
                     completeByDate={task.completeByDate}
                     handleUpdate={() => handleUpdateTasks()}
                 />
+            } else {
+
+                //If showCompleted is false, assigns all incomplete tasks to taskItems
+                if (!task.isComplete) {
+
+                    return <Task
+                        key={task.id}
+                        id={task.id}
+                        userId={user.sub.replace('|', "")}
+                        isComplete={task.isComplete}
+                        taskDesc={task.description}
+                        createdDateTime={task.createdDateTime}
+                        completeByDate={task.completeByDate}
+                        handleUpdate={() => handleUpdateTasks()}
+                    />
                 }
             }
         }
@@ -122,14 +124,47 @@ const Tasks = () => {
 
     //If tasksRetrieved === true map the tasks to an array of Task components
     if (tasksRetrieved && !loading) {
-
         handleRenderTasks();
+        newTask = 
+        
+        <OverlayTrigger
+        placement='right'
+        overlay={
+            <Tooltip>Click this to add a new task</Tooltip>
+        }>
+        
+        <FontAwesomeIcon className='icon' icon={faPlusCircle} onClick={() => setShowNewTask(true)} />
 
-        newTask = <FontAwesomeIcon className='icon' icon={faPlus} onClick={() => setShowNewTask(true)}/>
+        </OverlayTrigger>
+
+
+
 
     }
 
-    //Called when the showComepleted state changes
+    let filter;
+
+    if (tasks.length > 0) {
+        if (showCompleted) {
+            filter =
+                <Row>
+                    <Col xs={10}></Col>
+                    <Col xs={2}>
+                        <FontAwesomeIcon className='icon' icon={faEye} onClick={() => setShowCompleted(!showCompleted)} />
+                    </Col>
+                </Row>
+        } else {
+            filter =
+                <Row>
+                    <Col xs={10}></Col>
+                    <Col xs={2}>
+                        <FontAwesomeIcon className='icon' icon={faEyeSlash} onClick={() => setShowCompleted(!showCompleted)} />
+                    </Col>
+                </Row>
+        }
+    }
+
+    //Called when the showCompleted state changes
     useEffect(() => {
         handleRenderTasks();
     }, [showCompleted])
@@ -141,7 +176,7 @@ const Tasks = () => {
 
     return (
         <Container className='tasks'>
-            <Form.Check label="Show Completed Tasks" onChange={() => setShowCompleted(!showCompleted)} />
+            {filter}
             {newTask}
             {taskItems}
         </Container>
