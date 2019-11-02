@@ -1,12 +1,12 @@
 import React from "react";
 import { useAuth0 } from "../react-auth0-spa";
 
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
-import '../App.css'
+import "../App.css"
 
 const Welcome = () => {
 
@@ -17,7 +17,7 @@ const Welcome = () => {
 
         <>
             {!isAuthenticated && (
-                <Container className='welcome'>
+                <Container className="welcome">
                     <p>Click the button below to get productive.</p>
                     <Button className="button welcome-button"
                         onClick={() =>

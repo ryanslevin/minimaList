@@ -4,9 +4,9 @@ import Navigation from "./components/NavBar";
 import Welcome from "./components/Welcome";
 
 import Tasks from "./components/Tasks"
-import Container from 'react-bootstrap/Container';
+import Container from "react-bootstrap/Container";
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (

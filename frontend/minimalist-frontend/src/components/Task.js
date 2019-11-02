@@ -1,54 +1,58 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-import { useAuth0 } from '../react-auth0-spa';
+import { useAuth0 } from "../react-auth0-spa";
 
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-import Container from 'react-bootstrap/Container';
-import Dropdown from 'react-bootstrap/Dropdown';
-import Form from 'react-bootstrap/Form';
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faTimes, faEllipsisH  } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faCheck, faTimes, faTrashAlt, faEdit } from "@fortawesome/free-solid-svg-icons"
+import { faSquare, faCheckSquare } from "@fortawesome/free-regular-svg-icons"
 
-import '../App.css';
+
+import "../App.css";
 
 
 const Task = props => {
 
-
-    //<FontAwesomeIcon icon="coffee" />   import { faCoffee } from '@fortawesome/free-solid-svg-icons'
-
-
     const { getTokenSilently } = useAuth0();
 
-    let status = "Incomplete";
     let [description, setDescription] = useState(props.taskDesc);
     let [completeByDate, setCompleteByDate] = useState(new Date(props.completeByDate).toISOString().split("T")[0])
     let [createdDateTime, setCreatedDateTime] = useState(new Date(props.createdDateTime).toISOString().split("T")[0])
     let [isComplete, setIsComplete] = useState(props.isComplete)
+
+    //State for is the task is currently being edited
     let [edit, setEdit] = useState(false);
 
     //Get todays date in ISO format to set min for date picker
-    const today = new Date().toISOString().split('T')[0];
-
-    if (isComplete) {
-        status = "Complete"
-    }
+    const today = new Date().toISOString().split("T")[0];
 
     useEffect(() => {
         setDescription(props.taskDesc);
-        setCompleteByDate(new Date(props.completeByDate).toISOString().split("T")[0]);
-        setIsComplete(props.isComplete);
-    }, [props.taskDesc, props.completeByDate, props.isComplete])
+    }, [props.taskDesc])
 
-    const handleDelete = async (id) => {
+    useEffect(() => {
+        setCompleteByDate(new Date(props.completeByDate).toISOString().split("T")[0]);
+    }, [props.completeByDate])
+
+
+    useEffect(() => {
+        setIsComplete(props.isComplete);
+    }, [props.isComplete])
+
+
+    const handleDelete = async () => {
 
         //Get the authentication token
         const token = await getTokenSilently();
 
-        await fetch("http://localhost:8080/api/task?taskId=" + id, {
-            method: 'DELETE',
+        await fetch("http://localhost:8080/api/task?taskId=" + props.id, {
+            method: "DELETE",
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -59,6 +63,8 @@ const Task = props => {
 
     const handleComplete = async () => {
 
+        console.log("Completing task")
+
         //Get the authentication token
         const token = await getTokenSilently();
 
@@ -67,24 +73,26 @@ const Task = props => {
             id: props.id,
             userId: props.userId,
             description: props.taskDesc,
-            isComplete: true,
+            isComplete: !isComplete,
             createdDateTime: props.createdDateTime,
             completeByDate: props.completeByDate,
         })
 
         await fetch("http://localhost:8080/api/task", {
-            method: 'PUT',
+            method: "PUT",
             headers: {
                 Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json"
             },
             body: requestBody
-        }).then(
-            props.handleUpdate()
-        );
+        })
+        console.log("Calling handleUpdate()")
+        props.handleUpdate()
     }
 
     const handleEdit = async () => {
+
+        setEdit(false);
 
         //Get the authentication token
         const token = await getTokenSilently();
@@ -98,14 +106,11 @@ const Task = props => {
             createdDateTime: createdDateTime,
             completeByDate: completeByDate,
         })
-
-        console.log(requestBody);
-
         await fetch("http://localhost:8080/api/task", {
-            method: 'PUT',
+            method: "PUT",
             headers: {
                 Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json"
             },
             body: requestBody
         });
@@ -127,50 +132,99 @@ const Task = props => {
         setEdit(false);
     }
 
-    let buttonContent = 
-        <Dropdown>
-            <Dropdown.Toggle size="sm" variant="light" id="dropdown-basic"><FontAwesomeIcon className='icon options' icon={faEllipsisH}/></Dropdown.Toggle>
-            <Dropdown.Menu>
-                <Dropdown.Item as='button' onClick={() => handleComplete(props.id)}>Complete</Dropdown.Item>
-                <Dropdown.Item as='button' onClick={() => handleDelete(props.id)}>Delete</Dropdown.Item>
-                <Dropdown.Item as='button' onClick={() => setEdit(true)}>Edit</Dropdown.Item>
-            </Dropdown.Menu>
-        </Dropdown>
 
-        let descriptionContent = description;
-        let completeByDateContent;
+    //Button content for when the task is being displayed and not edited
+    let buttonContent =
+        <>
+            <OverlayTrigger
+                placement="right"
+                overlay={
+                    <Tooltip>Edit this task</Tooltip>
+                }>
+                <FontAwesomeIcon className="icon" icon={faEdit} onClick={() => setEdit(true)} />
+            </OverlayTrigger>
 
-        if (completeByDate === "1970-01-01") {
-            completeByDateContent = "-";
-        }else {
-            completeByDateContent = completeByDate;
-        }
+            <OverlayTrigger
+                placement="right"
+                overlay={
+                    <Tooltip>Delete this task</Tooltip>
+                }>
+                <FontAwesomeIcon className="icon" icon={faTrashAlt} onClick={() => handleDelete()} />
+            </OverlayTrigger>
+        </>
 
+    let descriptionContent = description;
+    let completeByDateContent;
+
+    //Check to see if the completeByDate is the default 1970-01-01 or is empty
+    //and if true it assigns "-" as the completeByDate content
+    if (completeByDate === "1970-01-01" || completeByDate === "") {
+        completeByDateContent = "-";
+    } else {
+        completeByDateContent = completeByDate;
+    }
+
+    //If the edit state is true
     if (edit) {
-        descriptionContent = <Form.Control value={description} className='text-area' as="textarea" rows="1" onChange={(e) => setDescription(e.target.value)} />
 
-        completeByDateContent = <Form.Control type="date" value={completeByDate} min={today} onChange={(e) => handleCompleteByDateChange(e)} />
+        //Text area component that changes the description state on change
+        descriptionContent =
+            <OverlayTrigger
+                placement="top"
+                overlay={
+                    <Tooltip>Enter your task</Tooltip>
+                }>
+                <Form.Control value={description} className="text-area" max="255" as="textarea" rows="1" onChange={(e) => setDescription(e.target.value)} />
+            </OverlayTrigger>
 
-        buttonContent = 
+        //Date html element that changes the completeByDate state on change
+        completeByDateContent =
+            <OverlayTrigger
+                placement="top"
+                overlay={
+                    <Tooltip>Choose your task due date</Tooltip>
+                }>
+                <Form.Control type="date" value={completeByDate} min={today} onChange={(e) => handleCompleteByDateChange(e)} />
+            </OverlayTrigger>
+        buttonContent =
             <>
-            <FontAwesomeIcon className='icon' icon={faCheck} onClick={() => handleEdit()}/>
-            <FontAwesomeIcon className='icon' icon={faTimes} onClick={() => handleCancelEdit()}/>
+                <FontAwesomeIcon className="icon" icon={faCheck} onClick={() => handleEdit()} />
+                <FontAwesomeIcon className="icon" icon={faTimes} onClick={() => handleCancelEdit()} />
             </>
 
     }
 
-    //Takes the boolean prop and converts to a string for display
-    if (props.isCompleted) {
-        status = "Complete"
+    let completeButton =
+
+        <OverlayTrigger
+            placement="left"
+            overlay={
+                <Tooltip>Complete this task</Tooltip>
+            }>
+            <FontAwesomeIcon className="icon" icon={faSquare} onClick={() => handleComplete()} />
+        </OverlayTrigger>
+
+    let taskClassName = "task"
+
+    if (isComplete) {
+        taskClassName = "task task-complete"
+        completeButton = 
+        <OverlayTrigger
+        placement="left"
+        overlay={
+            <Tooltip>Set this task to incomplete</Tooltip>
+        }>
+        <FontAwesomeIcon className="icon" icon={faCheckSquare} onClick={() => handleComplete()} />
+        </OverlayTrigger>
     }
 
     return (
-        <Container className='task'>
+        <Container className={taskClassName}>
             <Row>
-                <Col xs={12} sm={6} className='task-col align-self-center'>{descriptionContent}</Col>
-                <Col xs={6} sm={3} className='task-col align-self-center'>{completeByDateContent}</Col>
-                <Col xs={6} sm={1} className='task-col align-self-center'>{status}</Col>
-                <Col xs={12} sm={2} className='task-col align-self-center'>{buttonContent}</Col>
+                <Col xs={12} sm={1} className="task-col align-self-center">{completeButton}</Col>
+                <Col xs={12} sm={6} className="task-col align-self-center">{descriptionContent}</Col>
+                <Col xs={6} sm={3} className="task-col align-self-center">{completeByDateContent}</Col>
+                <Col xs={12} sm={2} className="task-col align-self-center">{buttonContent}</Col>
             </Row>
         </Container >
     )

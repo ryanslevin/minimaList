@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 import { useAuth0 } from "../react-auth0-spa";
 
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Form from 'react-bootstrap/Form';
-import Col from 'react-bootstrap/Col';
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Form from "react-bootstrap/Form";
+import Col from "react-bootstrap/Col";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons"
 
 const NewTask = (props) => {
 
@@ -20,7 +22,7 @@ const NewTask = (props) => {
   const { getTokenSilently } = useAuth0();
 
   //Get todays date in ISO format to set min for date picker
-  const today = new Date().toISOString().split('T')[0];
+  const today = new Date().toISOString().split("T")[0];
 
   //Update the descirption when the value of the form changes
   const updateDescription = (e) => {
@@ -46,10 +48,10 @@ const NewTask = (props) => {
 
     console.log(requestBody);
     await fetch("http://localhost:8080/api/task", {
-      method: 'POST',
+      method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       },
       body: requestBody
     });
@@ -64,19 +66,41 @@ const NewTask = (props) => {
   }
 
   return (
-    <Container className='task'>
+    <Container className="task">
       <Row>
-        <Col xs={12} sm={6} className='task-col align-self-center'>
-          <Form.Control className='text-area' as="textarea" rows="1" onChange={(e) => updateDescription(e)} />
+        <Col xs={12} sm={7} className="task-col align-self-center">
+        <OverlayTrigger
+                placement="top"
+                overlay={
+                    <Tooltip>Enter your task</Tooltip>
+                }>
+          <Form.Control className="text-area" as="textarea" rows="1" onChange={(e) => updateDescription(e)} />
+          </OverlayTrigger>
         </Col>
-        <Col xs={6} sm={3} className='task-col align-self-center'>
+        <Col xs={12} sm={3} className="task-col align-self-center">
+        <OverlayTrigger
+                placement="top"
+                overlay={
+                    <Tooltip>Choose your task due date</Tooltip>
+                }>
           <Form.Control type="date" min={today} onChange={(e) => handleCompleteByDateChange(e)} />
+          </OverlayTrigger>
         </Col>
-        <Col xs={6} sm={1} className='task-col align-self-center'>
-        </Col>
-        <Col xs={12} sm={2} className='task-col align-self-center'>
-        <FontAwesomeIcon className='icon' icon={faCheckCircle} onClick={() => handleTaskSubmit()}/>
-        <FontAwesomeIcon className='icon' icon={faTimesCircle} onClick={props.handleCancel}/>
+        <Col xs={12} sm={2} className="task-col align-self-center">
+        <OverlayTrigger
+                placement="top"
+                overlay={
+                    <Tooltip>Add this task</Tooltip>
+                }>
+        <FontAwesomeIcon className="icon" icon={faCheck} onClick={() => handleTaskSubmit()}/>
+        </OverlayTrigger>
+        <OverlayTrigger
+                placement="top"
+                overlay={
+                    <Tooltip>Cancel</Tooltip>
+                }>
+        <FontAwesomeIcon className="icon" icon={faTimes} onClick={props.handleCancel}/>
+        </OverlayTrigger>
         </Col>
       </Row>
     </Container>
