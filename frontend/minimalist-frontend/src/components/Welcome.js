@@ -18,13 +18,12 @@ const Welcome = () => {
         <>
             {!isAuthenticated && (
                 <Container className="welcome">
-                    <p>Click the button below to get productive.</p>
                     <Button className="button welcome-button"
                         onClick={() =>
                             loginWithRedirect({})
                         }
                     >
-                        Get Started
+                        Click here to get productive
                         </Button>
                 </Container>
 
