@@ -24,7 +24,7 @@ const NewTask = (props) => {
   //Get todays date in ISO format to set min for date picker
   const today = new Date().toISOString().split("T")[0];
 
-  const server = process.env.mysqlserver;
+  const server = "Test-env.umatgpiumu.us-west-2.elasticbeanstalk.com";
 
   //Update the descirption when the value of the form changes
   const updateDescription = (e) => {
