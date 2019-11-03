@@ -1,5 +1,6 @@
 {
-    "domain": "minimalist-app.auth0.com",
-    "clientId": "1UkhePtzXJ6zZNccWCGPpp9b0j9jyyZ4",
-    "audience": "https://minimalist-app.com"
+    "domain": "%REACT_APP_AUTH0_DOMAIN%",
+    "clientId": "%REACT_APP_AUTH0_CLIENTID%",
+    "audience": "%REACT_APP_AUTH0_AUDIENCE%",
+    "mysqlserver": "%REACT_APP_MYSQL_SERVER%"
 }

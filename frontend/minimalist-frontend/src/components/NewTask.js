@@ -24,6 +24,8 @@ const NewTask = (props) => {
   //Get todays date in ISO format to set min for date picker
   const today = new Date().toISOString().split("T")[0];
 
+  const server = process.env.mysqlserver;
+
   //Update the descirption when the value of the form changes
   const updateDescription = (e) => {
     setDescription(e.target.value);
@@ -47,7 +49,7 @@ const NewTask = (props) => {
     })
 
     console.log(requestBody);
-    await fetch("http://localhost:8080/api/task", {
+    await fetch(server + "/api/task", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,

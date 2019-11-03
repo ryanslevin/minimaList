@@ -26,6 +26,8 @@ const Tasks = () => {
     const [tasksRetrieved, setTasksRetrieved] = useState(false);
     const [taskComponents, setTaskComponents] = useState([]);
 
+    const server = process.env.mysqlserver;
+
 
     useEffect(() => {
         //Check if Auth0 is still loading, and if the tasks have already been retrieved
@@ -56,7 +58,7 @@ const Tasks = () => {
         setTasksRetrieved(true);
 
         //GET request to backend, will return a collection of tasks
-        await fetch("http://localhost:8080/api/task?userId=" + userId, {
+        await fetch(server + "/api/task?userId=" + userId, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${token}`

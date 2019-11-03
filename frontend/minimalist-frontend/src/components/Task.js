@@ -29,6 +29,8 @@ const Task = props => {
     //State for is the task is currently being edited
     let [edit, setEdit] = useState(false);
 
+    const server = process.env.mysqlserver;
+
     //Get todays date in ISO format to set min for date picker
     const today = new Date().toISOString().split("T")[0];
 
@@ -51,7 +53,7 @@ const Task = props => {
         //Get the authentication token
         const token = await getTokenSilently();
 
-        await fetch("http://localhost:8080/api/task?taskId=" + props.id, {
+        await fetch(server + "/api/task?taskId=" + props.id, {
             method: "DELETE",
             headers: {
                 Authorization: `Bearer ${token}`
@@ -78,7 +80,7 @@ const Task = props => {
             completeByDate: props.completeByDate,
         })
 
-        await fetch("http://localhost:8080/api/task", {
+        await fetch(server + "/api/task", {
             method: "PUT",
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -106,7 +108,7 @@ const Task = props => {
             createdDateTime: createdDateTime,
             completeByDate: completeByDate,
         })
-        await fetch("http://localhost:8080/api/task", {
+        await fetch(server + "/api/task", {
             method: "PUT",
             headers: {
                 Authorization: `Bearer ${token}`,
