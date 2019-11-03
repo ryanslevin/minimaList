@@ -1,8 +1,8 @@
 auth0:
-  audience: minimalist-app-api
+  audience: https://minimalist-app.com
 spring:
   security:
     oauth2:
         resourceserver:
             jwt:
-                issuer-uri: minimalist-app.auth0.com
+                issuer-uri: https://minimalist-app.auth0.com/

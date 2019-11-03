@@ -43,8 +43,6 @@ const Tasks = () => {
 
     }, [tasks, showCompleted])
 
-
-
     const getTasks = async () => {
 
         console.log("getting tasks")
@@ -152,7 +150,6 @@ const Tasks = () => {
             </OverlayTrigger>
 
     }
-
 
     const handleShowNewTask = () => {
         setShowNewTask(true);
