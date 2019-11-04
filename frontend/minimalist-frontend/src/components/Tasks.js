@@ -26,7 +26,7 @@ const Tasks = () => {
     const [tasksRetrieved, setTasksRetrieved] = useState(false);
     const [taskComponents, setTaskComponents] = useState([]);
 
-    const server = "https://Test-env.umatgpiumu.us-west-2.elasticbeanstalk.com";
+    const server = "https://api.minimalistapp.com";
 
 
     useEffect(() => {
