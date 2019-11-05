@@ -29,7 +29,7 @@ const Task = props => {
     //State for is the task is currently being edited
     let [edit, setEdit] = useState(false);
 
-    const server = "https://Test-env.umatgpiumu.us-west-2.elasticbeanstalk.com";
+    const server = "https://api.minimalistapp.com";
 
     //Get todays date in ISO format to set min for date picker
     const today = new Date().toISOString().split("T")[0];
