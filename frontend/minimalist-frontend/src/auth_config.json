@@ -1,5 +1,5 @@
 {
     "domain": "minimalist-app.auth0.com",
     "clientId": "1UkhePtzXJ6zZNccWCGPpp9b0j9jyyZ4",
-    "audience": "https://minimalist-app.com",
+    "audience": "https://minimalist-app.com"
 }
