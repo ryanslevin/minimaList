@@ -43,6 +43,7 @@
     margin-right: 10px;
     margin-left: 10px;
     color: #292929;
+    cursor: pointer;
 }
 
 
@@ -52,7 +53,6 @@
 
 .icon:hover {
     opacity: 0.7;
-    cursor: pointer;
 }
 
 .icon-add-task {
@@ -89,13 +89,11 @@
     font-weight: 300 !important;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 768px) {
 
     .title{
         font-size: 2em !important;
     }
-
-
 
 }
 

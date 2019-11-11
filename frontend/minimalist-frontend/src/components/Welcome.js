@@ -4,14 +4,12 @@ import { useAuth0 } from "../react-auth0-spa";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-
 import "../App.css"
 
 const Welcome = () => {
 
 
-    const { loginWithRedirect, isAuthenticated, logout } = useAuth0();
+    const { loginWithRedirect, isAuthenticated } = useAuth0();
 
     return (
 

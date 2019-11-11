@@ -47,8 +47,6 @@ const Tasks = () => {
 
     const getTasks = async () => {
 
-        console.log("getting tasks")
-
         //Get the authentication token
         const token = await getTokenSilently();
 

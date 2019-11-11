@@ -65,8 +65,6 @@ const Task = props => {
 
     const handleComplete = async () => {
 
-        console.log("Completing task")
-
         //Get the authentication token
         const token = await getTokenSilently();
 
@@ -88,7 +86,6 @@ const Task = props => {
             },
             body: requestBody
         })
-        console.log("Calling handleUpdate()")
         props.handleUpdate()
     }
 
@@ -225,7 +222,7 @@ const Task = props => {
             <Row>
                 <Col xs={12} sm={1} className="task-col align-self-center">{completeButton}</Col>
                 <Col xs={12} sm={6} className="task-col align-self-center">{descriptionContent}</Col>
-                <Col xs={6} sm={3} className="task-col align-self-center">{completeByDateContent}</Col>
+                <Col xs={12} sm={3} className="task-col align-self-center">{completeByDateContent}</Col>
                 <Col xs={12} sm={2} className="task-col align-self-center">{buttonContent}</Col>
             </Row>
         </Container >
