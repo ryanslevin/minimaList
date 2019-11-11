@@ -2,5 +2,4 @@
     "domain": "minimalist-app.auth0.com",
     "clientId": "1UkhePtzXJ6zZNccWCGPpp9b0j9jyyZ4",
     "audience": "https://minimalist-app.com",
-    "mysqlserver": "Test-env.umatgpiumu.us-west-2.elasticbeanstalk.com"
 }
