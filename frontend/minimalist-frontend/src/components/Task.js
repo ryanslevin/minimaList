@@ -16,6 +16,8 @@ import { faSquare, faCheckSquare } from "@fortawesome/free-regular-svg-icons"
 
 import "../App.css";
 
+import 'whatwg-fetch'; 
+
 
 const Task = props => {
 
@@ -163,6 +165,31 @@ const Task = props => {
         completeByDateContent = completeByDate;
     }
 
+
+
+    let completeButton =
+
+        <OverlayTrigger
+            placement="top"
+            overlay={
+                <Tooltip>Complete task</Tooltip>
+            }>
+            <FontAwesomeIcon className="icon" icon={faSquare} onClick={() => handleComplete()} />
+        </OverlayTrigger>
+    let taskClassName = "task"
+
+    if (isComplete) {
+        taskClassName = "task task-complete"
+        completeButton =
+            <OverlayTrigger
+                placement="top"
+                overlay={
+                    <Tooltip>Uncomplete task</Tooltip>
+                }>
+                <FontAwesomeIcon className="icon" icon={faCheckSquare} onClick={() => handleComplete()} />
+            </OverlayTrigger>
+    }
+
     //If the edit state is true
     if (edit) {
 
@@ -191,31 +218,11 @@ const Task = props => {
                 <FontAwesomeIcon className="icon" icon={faTimes} onClick={() => handleCancelEdit()} />
             </>
 
+        //Remove complete button content
+        completeButton = "";
+
+
     }
-
-    let completeButton =
-
-        <OverlayTrigger
-            placement="top"
-            overlay={
-                <Tooltip>Complete task</Tooltip>
-            }>
-            <FontAwesomeIcon className="icon" icon={faSquare} onClick={() => handleComplete()} />
-        </OverlayTrigger>
-    let taskClassName = "task"
-
-    if (isComplete) {
-        taskClassName = "task task-complete"
-        completeButton =
-            <OverlayTrigger
-                placement="top"
-                overlay={
-                    <Tooltip>Uncomplete task</Tooltip>
-                }>
-                <FontAwesomeIcon className="icon" icon={faCheckSquare} onClick={() => handleComplete()} />
-            </OverlayTrigger>
-    }
-
     return (
         <Container className={taskClassName}>
             <Row>

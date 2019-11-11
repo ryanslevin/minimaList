@@ -16,6 +16,8 @@ import "../App.css";
 import Task from "./Task";
 import NewTask from "./NewTask";
 
+import 'whatwg-fetch'; 
+
 const Tasks = () => {
 
     const { loading, getTokenSilently, user } = useAuth0();

@@ -3,7 +3,7 @@
     max-width: 100% !important;
     text-align: center;
     height: 100vh;
-    background-color: #f5f5f5;
+    background-image: linear-gradient(#f5f5f5, #dfdfdf);
     font-family: 'Raleway', sans-serif;
 }
 
@@ -86,7 +86,14 @@
 .title {
     color: #f5f5f5 !important;
     font-size: 3em !important;
-    font-weight: 300 !important;
+    font-weight: 400 !important;
+    display: inline !important;
+}
+
+.cursive {
+    font-family: 'Mali', cursive;
+    font-weight: 200 !important;
+    font-size: 2.5em !important;
 }
 
 @media only screen and (max-width: 768px) {

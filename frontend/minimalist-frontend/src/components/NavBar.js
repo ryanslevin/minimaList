@@ -20,7 +20,7 @@ const Navigation = () => {
         <Navbar className="navbar" variant="dark">
             <Col xs={2}>
             </Col>
-            <Col xs={8} className="header"><h2 className="title">MinimaList</h2></Col>
+            <Col xs={8} className="header"><h2 className="title cursive">minima</h2><h2 className="title">List</h2></Col>
             {/*Check to see if user is unauthenticated, populates NavBar with login button if true*/}
 
             <Col xs={2} className="logout">

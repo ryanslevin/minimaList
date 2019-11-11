@@ -12,6 +12,8 @@ import Tooltip from "react-bootstrap/Tooltip";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons"
 
+import 'whatwg-fetch'; 
+
 const NewTask = (props) => {
 
   //State management
