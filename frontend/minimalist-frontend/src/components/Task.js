@@ -194,14 +194,26 @@ const Task = props => {
     }
 
     let completeButton =
-            <FontAwesomeIcon className="icon" icon={faSquare} onClick={() => handleComplete()} />
 
+        <OverlayTrigger
+            placement="top"
+            overlay={
+                <Tooltip>Complete task</Tooltip>
+            }>
+            <FontAwesomeIcon className="icon" icon={faSquare} onClick={() => handleComplete()} />
+        </OverlayTrigger>
     let taskClassName = "task"
 
     if (isComplete) {
         taskClassName = "task task-complete"
-        completeButton = 
-        <FontAwesomeIcon className="icon" icon={faCheckSquare} onClick={() => handleComplete()} />
+        completeButton =
+            <OverlayTrigger
+                placement="top"
+                overlay={
+                    <Tooltip>Uncomplete task</Tooltip>
+                }>
+                <FontAwesomeIcon className="icon" icon={faCheckSquare} onClick={() => handleComplete()} />
+            </OverlayTrigger>
     }
 
     return (
