@@ -5,7 +5,7 @@ const htmlWebpackPlugin = new HtmlWebpackPlugin({
     filename: "./index.html"
 });
 module.exports = {
-    entry: path.join(__dirname, "./src/index.js"),
+    entry: ["@babel/polyfill", (path.join(__dirname, "./src/index.js"))],
     module: {
         rules: [
             {
