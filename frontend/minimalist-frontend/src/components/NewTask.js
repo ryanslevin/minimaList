@@ -50,7 +50,6 @@ const NewTask = (props) => {
       completeByDate: completeByDate
     })
 
-    console.log(requestBody);
     await fetch(server + "/api/task", {
       method: "POST",
       headers: {
