@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 
 import { useAuth0 } from "../react-auth0-spa";
 
+import Moment from 'react-moment';
+
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
@@ -24,9 +26,9 @@ const Task = props => {
     const { getTokenSilently } = useAuth0();
 
     let [description, setDescription] = useState(props.taskDesc);
-    let [completeByDate, setCompleteByDate] = useState(new Date(props.completeByDate).toISOString().split("T")[0])
-    let [createdDateTime, setCreatedDateTime] = useState(new Date(props.createdDateTime).toISOString().split("T")[0])
-    let [isComplete, setIsComplete] = useState(props.isComplete)
+    let [completeByDate, setCompleteByDate] = useState(props.completeByDate);
+    let [createdDateTime, setCreatedDateTime] = useState(props.createdDateTime);
+    let [isComplete, setIsComplete] = useState(props.isComplete);
 
     //State for is the task is currently being edited
     let [edit, setEdit] = useState(false);
@@ -41,7 +43,7 @@ const Task = props => {
     }, [props.taskDesc])
 
     useEffect(() => {
-        setCompleteByDate(new Date(props.completeByDate).toISOString().split("T")[0]);
+        setCompleteByDate(props.completeByDate);
     }, [props.completeByDate])
 
 
@@ -162,7 +164,7 @@ const Task = props => {
     if (completeByDate === "1970-01-01" || completeByDate === "") {
         completeByDateContent = "-";
     } else {
-        completeByDateContent = completeByDate;
+        completeByDateContent = <Moment format="YYYY-MM-DD"date={completeByDate} />
     }
 
 

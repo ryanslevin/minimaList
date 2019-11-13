@@ -24,7 +24,7 @@ const NewTask = (props) => {
   const { getTokenSilently } = useAuth0();
 
   //Get todays date in ISO format to set min for date picker
-  const today = new Date().toISOString().split("T")[0];
+  const today = new Date();
 
   const server = "https://api.minimalistapp.com";
 
