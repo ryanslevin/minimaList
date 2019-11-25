@@ -3,13 +3,13 @@
     max-width: 100% !important;
     text-align: center;
     height: 100vh;
-    background-image: linear-gradient(#f5f5f5, #dfdfdf);
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Calibri';
+    color: #ffffff;
 }
 
 .navbar {
     text-align: center;
-    background-color: #292929;
+    background-color: rgba(0,0,0,0)
 }
 
 .tasks {
@@ -20,30 +20,40 @@
 }
 
 .task {
-    text-align: center;
     margin-top: 10px;
     margin-bottom: 10px;
-    border: 1px solid rgba(0, 0, 0, .25);
-    border-radius: 8px;
-    background-color: #fafafa;
-    box-shadow: 2px 2px grey;
-    height: auto;
+    text-align: center;
+    border: 4px solid rgb(255, 255, 255);
+    border-radius: 6px;
+    background-color: #ffffff;
+    color: #000000;
+    display: flex;
+    flex-direction: column;
 }
 
-.task-complete {
-    text-decoration: line-through;
+.task-complete{
+    border: 4px solid rgb(146, 230, 220);
 }
+
+.task-in-progress{
+    border: 4px solid rgb(255, 237, 182);
+}
+
 
 .form-control {
     display: inline !important;
 }
 
 .icon {
-    font-size: 1.5em;
+    font-size: 1.25em;
     margin-right: 10px;
     margin-left: 10px;
-    color: #292929;
+    color: #000000;
     cursor: pointer;
+}
+
+.icon-light {
+    color: #ffffff;
 }
 
 
@@ -59,39 +69,33 @@
     margin-top: 2vh;
 }
 
-.red {
-    color: rgb(204, 94, 94);
-}
-
-.green {
-    color: rgb(94, 177, 94);
-}
-
 .completed-filter {
     text-align: right;
     position: relative;
 }
 
 .task-col {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    height: auto;
+    padding: 5px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .header {
     text-align: center !important;
-    color: #292929 !important;
+    color: #ffffff !important;
 }
 
 .title {
-    color: #f5f5f5 !important;
+    color: #ffffff !important;
     font-size: 3em !important;
     font-weight: 400 !important;
     display: inline !important;
+    font-family: 'Raleway', sans-serif !important;
 }
 
 .cursive {
-    font-family: 'Mali', cursive;
+    font-family: 'Mali', cursive !important;
     font-weight: 200 !important;
     font-size: 2.5em !important;
 }
@@ -101,29 +105,53 @@
     .title{
         font-size: 2em !important;
     }
-
 }
 
 .logout {
     text-align: right !important;
-    color: #f5f5f5 !important;
+    color: #ffffff !important;
 }
 
-.text-area {
-    margin-top: 5px !important;
-    margin-bottom: 0px !important;
+.show-complete-button{
+    display: flex;
+    align-content: flex-start;
 }
 
 .button {
-    background-color: #292929 !important;
-    border: 1px solid rgba(0, 0, 0, 0) !important;
-    border-radius: 8px !important;
-    box-shadow: 2px 2px grey !important;
-    color: #f5f5f5 !important;
+    background-color: rgba(0,0,0,0) !important;
+    border: 0px solid rgba(241, 241, 241, 0) !important;
+    border-radius: 25px !important;
+    color: #ffffff!important;
+    cursor: pointer;
 }
 
 .button:hover {
-    background-color: #3d3d3d !important;
+    opacity: 0.70;
+    
+}
+
+.complete {
+    background-color: rgb(146, 230, 220) !important;
+    color: rgb(12, 112, 100) !important;
+    flex: 1;
+}
+
+.complete:hover, .in-progress:hover {
+    cursor: pointer;
+    opacity: 0.70;
+}
+
+.in-progress {
+    background-color: rgb(255, 237, 182) !important;
+    color: rgb(211, 168, 38) !important;
+    flex: 1;
+    justify-content: center;
+}
+
+.is-complete-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .welcome {
@@ -131,7 +159,7 @@
 }
 
 .welcome-button {
-    margin: 2vh;
+    margin: 5vh;
 }
 
 .tooltip-inner {
@@ -140,4 +168,32 @@
 
 .arrow::before, .arrow::after {
     border-bottom-color: #292929 !important;
+}
+
+canvas{
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    display: block;
+}
+
+.particle{
+    width: 100%;
+    height: 100%;
+}
+
+.background-container{
+    background-image: linear-gradient(rgba(41,43,129) , rgba(117,83,163), rgba(165,108,177), rgba(219,170,203) );
+    z-index: -1;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+.green{
+    color: rgb(146, 230, 220);
+}
+
+.red{
+    color: rgb(230, 149, 146);
 }

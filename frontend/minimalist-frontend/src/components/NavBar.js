@@ -5,9 +5,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Col from "react-bootstrap/Col";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faSignOutAlt, faSignInAlt } from "@fortawesome/free-solid-svg-icons"
+import Button from "react-bootstrap/Button"
 
 import "../App.css"
 
@@ -25,24 +23,13 @@ const Navigation = () => {
 
             <Col xs={2} className="logout">
                 {!isAuthenticated && (
-                    <OverlayTrigger
-                        placement="bottom"
-                        overlay={
-                            <Tooltip>Login</Tooltip>
-                        }>
-                        <FontAwesomeIcon icon={faSignInAlt} className="icon logout" onClick={() => loginWithRedirect({})} />
-                    </OverlayTrigger>
+                    <Button variant="outline-light" onClick={() => loginWithRedirect()}>Login</Button>
                 )}
                 {/*Checks to see if user is authenticated, adds Log out button to NavBar if true*/}
 
                 {isAuthenticated && (
-                    <OverlayTrigger
-                        placement="bottom"
-                        overlay={
-                            <Tooltip>Logout</Tooltip>
-                        }>
-                        <FontAwesomeIcon icon={faSignOutAlt} className="icon logout" onClick={() => logout()} />
-                    </OverlayTrigger>
+
+                    <Button variant="outline-light" onClick={() => logout()}>Logout</Button>
 
                 )}
             </Col>

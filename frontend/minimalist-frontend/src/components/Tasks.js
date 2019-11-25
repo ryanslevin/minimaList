@@ -7,6 +7,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
+import Button from "react-bootstrap/Button"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
@@ -141,15 +142,8 @@ const Tasks = () => {
 
     //If tasksRetrieved === true map the tasks to an array of Task components
     if (!loading && user) {
-        //handleRenderTasks();
         newTask =
-            <OverlayTrigger
-                placement="top"
-                overlay={
-                    <Tooltip>Add a new task</Tooltip>
-                }>
-                <FontAwesomeIcon className="icon icon-add-task" icon={faPlus} onClick={() => handleShowNewTask()} />
-            </OverlayTrigger>
+                <FontAwesomeIcon className="icon icon-light icon-add-task" icon={faPlus} onClick={() => handleShowNewTask()} />
 
     }
 
@@ -163,30 +157,17 @@ const Tasks = () => {
         if (showCompleted) {
             filter =
                 <Row>
-                    <Col xs={10}></Col>
-                    <Col xs={2}>
-                        <OverlayTrigger
-                            placement="top"
-                            overlay={
-                                <Tooltip>Hide completed tasks</Tooltip>
-                            }>
-                            <FontAwesomeIcon className="icon" icon={faEye} onClick={() => setShowCompleted(!showCompleted)} />
-                        </OverlayTrigger>
+                    <Col className="show-complete-button" xs={12}>
+                            <Button variant="outline-light" onClick={() => setShowCompleted(false) }>Hide completed tasks</Button>
                     </Col>
                 </Row>
         } else {
             filter =
                 <Row>
-                    <Col xs={10}></Col>
-                    <Col xs={2}>
-                        <OverlayTrigger
-                            placement="top"
-                            overlay={
-                                <Tooltip>Show completed tasks</Tooltip>
-                            }>
-                            <FontAwesomeIcon className="icon" icon={faEyeSlash} onClick={() => setShowCompleted(!showCompleted)} />
-                        </OverlayTrigger>
+                    <Col className="show-complete-button" xs={12}>
+                            <Button variant="outline-light" onClick={() => setShowCompleted(true) }>Show completed tasks</Button>
                     </Col>
+
                 </Row>
         }
     }

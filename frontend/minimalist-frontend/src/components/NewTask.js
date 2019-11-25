@@ -12,14 +12,14 @@ import Tooltip from "react-bootstrap/Tooltip";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons"
 
-import 'whatwg-fetch'; 
+import 'whatwg-fetch';
 
 const NewTask = (props) => {
 
   //State management
   const [description, setDescription] = useState();
   const [completeByDate, setCompleteByDate] = useState();
-  
+
   //Function to get Auto0 token, needed for POST call
   const { getTokenSilently } = useAuth0();
 
@@ -71,39 +71,21 @@ const NewTask = (props) => {
   return (
     <Container className="task">
       <Row>
-        <Col xs={12} sm={7} className="task-col align-self-center">
-        <OverlayTrigger
-                placement="top"
-                overlay={
-                    <Tooltip>Enter your task</Tooltip>
-                }>
-          <Form.Control className="text-area" as="textarea" rows="1" onChange={(e) => updateDescription(e)} />
+        <Col xs={12} sm={9} className="task-col">
+          <Form.Control className="text-area" placeHolder="Enter your task description here..." onChange={(e) => updateDescription(e)} />
+        </Col>
+        <Col xs={12} sm={2} className="task-col">
+          <OverlayTrigger
+            placement="top"
+            overlay={
+              <Tooltip>Choose your task due date</Tooltip>
+            }>
+            <Form.Control type="date" min={today} onChange={(e) => handleCompleteByDateChange(e)} />
           </OverlayTrigger>
         </Col>
-        <Col xs={12} sm={3} className="task-col align-self-center">
-        <OverlayTrigger
-                placement="top"
-                overlay={
-                    <Tooltip>Choose your task due date</Tooltip>
-                }>
-          <Form.Control type="date" min={today} onChange={(e) => handleCompleteByDateChange(e)} />
-          </OverlayTrigger>
-        </Col>
-        <Col xs={12} sm={2} className="task-col align-self-center">
-        <OverlayTrigger
-                placement="top"
-                overlay={
-                    <Tooltip>Add this task</Tooltip>
-                }>
-        <FontAwesomeIcon className="icon" icon={faCheck} onClick={() => handleTaskSubmit()}/>
-        </OverlayTrigger>
-        <OverlayTrigger
-                placement="top"
-                overlay={
-                    <Tooltip>Cancel</Tooltip>
-                }>
-        <FontAwesomeIcon className="icon" icon={faTimes} onClick={props.handleCancel}/>
-        </OverlayTrigger>
+        <Col xs={12} sm={1} className="task-col">
+          <FontAwesomeIcon className="icon green" icon={faCheck} onClick={() => handleTaskSubmit()} />
+          <FontAwesomeIcon className="icon red" icon={faTimes} onClick={props.handleCancel} />
         </Col>
       </Row>
     </Container>

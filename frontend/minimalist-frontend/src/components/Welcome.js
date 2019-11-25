@@ -17,7 +17,7 @@ const Welcome = () => {
             {!isAuthenticated && (
                 <Container className="welcome">
                     <p>Simply productive.</p>
-                    <Button className="button welcome-button"
+                    <Button variant="outline-light" className="welcome-button"
                         onClick={() =>
                             loginWithRedirect({})
                         }
