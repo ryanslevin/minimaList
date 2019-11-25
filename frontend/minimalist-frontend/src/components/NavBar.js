@@ -21,14 +21,13 @@ const Navigation = () => {
             <Col xs={8} className="header"><h2 className="title cursive">minima</h2><h2 className="title">List</h2></Col>
             {/*Check to see if user is unauthenticated, populates NavBar with login button if true*/}
 
-            <Col xs={2} className="logout">
+            <Col sx={2} className="logout">
                 {!isAuthenticated && (
                     <Button variant="outline-light" onClick={() => loginWithRedirect()}>Login</Button>
                 )}
                 {/*Checks to see if user is authenticated, adds Log out button to NavBar if true*/}
 
                 {isAuthenticated && (
-
                     <Button variant="outline-light" onClick={() => logout()}>Logout</Button>
 
                 )}

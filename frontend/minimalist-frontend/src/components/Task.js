@@ -203,7 +203,7 @@ const Task = props => {
                 <Col xs={12} sm={2} md={2} className={completeColumnClass} onClick={() => handleComplete()}>{completeButton}</Col>
                 <Col xs={12} sm={6} md={7} className="task-col">{descriptionContent}</Col>
                 <Col xs={8} sm={2} md={2} className="task-col">{completeByDateContent}</Col>
-                <Col xs={2} sm={2} md={1} className="task-col">{buttonContent}</Col>
+                <Col xs={4} sm={2} md={1} className="task-col">{buttonContent}</Col>
             </Row>
         </Container >
     )
